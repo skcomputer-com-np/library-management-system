@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_student" model="ir.ui.view">
+			<field name="name">view.student</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				
+					<xpath expr="//field[@name='company_type']" position="replace">
+						<div>
+							<field name="is_status"  widget="radio" options="{'horizontal': true}"/>
+						</div>
+					</xpath>
+
+					<!-- <xpath expr="//label[@for='street']" position="before">
+						<field name="gender"/>
+					</xpath> -->
+
+					<xpath expr="//page[@name='sales_purchases']" position="after">
+						<page string="Student" name='student' attrs="{
+							'invisible': ['|',('is_status','=','faculty'),'|',('is_status','=','admin')],
+							}">
+							<group>
+								<field name="gender"/>
+								<field name="divisoin"/>
+								<field name="date"/>
+							</group>
+						</page>
+					</xpath>
+
+<!-- this is only for example (you can comment below code ) -->
+<!-- start -->
+					<xpath expr="//page[@name='student']" position="after">
+						<page string="Librarian" name='Librarian' attrs="{
+							'invisible': ['|',('is_status','=','admin'),'|',('is_status','=','stud')]
+							}">
+							<group>
+								<field name="gender"/>
+								<field name="divisoin"/>
+								<field name="date"/>
+							</group>
+						</page>
+					</xpath>	
+<!--stop-->
+				</field>
+		</record>
+
+		<!-- <record id="tree_student" model="ir.ui.view">
+			<field name="name">tree.student</field>
+			<field name="model">student.details</field>
+			<field name="arch" type="xml">
+				<tree string="Student Details">
+					<field name="stud_name"/>
+					<field name="gender"/>
+					<field name="divisoin"/>
+					<field name="city"/>
+					<field name="mobile_no"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_student" model="ir.actions.act_window">
+			<field name="name">Student Details</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">student.details</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record> -->
+
+		<!-- <menuitem id="menuitem_student_view" name="Student" sequence="5" action="action_student" parent="menu_book_menu"/> -->
+	</data>
+</odoo>
